@@ -9,6 +9,8 @@ total = 0
 def countit(data):
     global total
     if isinstance(data, dict):
+        if 'red' in data.values():
+            return
         for k, v in data.items():
             assert not k.isdigit()
             countit(v)
