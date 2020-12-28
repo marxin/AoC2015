@@ -36,6 +36,7 @@ def match(me, boss):
             return False
 
 mincost = 100000
+maxcost = 0
 for weapon in weapons:
     print(weapon)
     me = me2.copy()
@@ -43,13 +44,12 @@ for weapon in weapons:
     for a in armor:
         for r in rings:
             for r2 in rings:
-                a = [0, 0, 0]
                 me[0] = 100
-                me[1] = weapon[1] + a[1] + r[1] + r2[1]
-                me[2] = weapon[2] + a[2] + r[2] + r2[2]
-                cost = weapon[0] + a[0] + r[0] + r2[0]
-                if match(me, boss2.copy()):
-                    if cost < mincost:
-                        mincost = cost
-                        print('min', cost)
+                me[1] = weapon[1] + r[1] + r2[1]
+                me[2] = weapon[2] + r[2] + r2[2]
+                cost = weapon[0] +  r[0] + r2[0]
+                if not match(me, boss2.copy()):
+                    if cost > maxcost:
+                        maxcost = cost
+                        print('max', cost)
                         print(me, boss)
