@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+import random
+import sys
+
 rulestxt = '''
 Al => ThF
 Al => ThRnFAr
@@ -86,7 +89,8 @@ for lhs, rhs in rules:
 
 print(len(generated))
 
-rules = sorted(rules, key=lambda x: len(x[1]), reverse=False)
+rules = sorted(rules, key=lambda x: len(x[1]), reverse=True)
+print(rules)
 
 seen = set()
 
@@ -97,22 +101,18 @@ hits = 0
 
 def shrinken(string, replacements):
     global minimal
-    global called
-    global hits
-    assert string
-    called += 1
-    if string in seen:
-        hits += 1
-        if hits % 10000 == 0:
-            print(hits, called, 1.0 * hits / called)
-        return
+    if string == 'e':
+        print(replacements)
+        sys.exit(0)
     if len(string) < minimal:
         minimal = len(string)
         print(minimal)
         print(string)
-    seen.add(string)
+    random.shuffle(rules)
     for lhs, rhs in rules:
-        for i in find_indices(string, rhs):
+        indices = list(find_indices(string, rhs))
+        random.shuffle(indices)
+        for i in indices:
             shrinken(string[:i] + lhs + string[i+len(rhs):], replacements + 1)
 
 shrinken(source, 0)
