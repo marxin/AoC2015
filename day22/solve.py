@@ -51,6 +51,7 @@ def play(me, boss, active_spells, spent, played_spells):
     if spent >= minimum:
         return False
     # ME
+    me[0] -= 1
     if me[0] <= 0:
         return False
     play_spells(me, boss, active_spells)
