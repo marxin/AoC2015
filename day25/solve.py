@@ -17,4 +17,3 @@ while True:
     else:
         position[0] -= 1
         position[1] += 1
-        position
